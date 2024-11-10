@@ -1,0 +1,37 @@
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Reduced the min width to make the cards smaller */
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .book-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8rem; /* Reduced padding inside the card */
+    text-align: center;
+    transition: box-shadow 0.3s;
+  }
+  
+  .book-card img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 8px; /* Reduced margin below the image */
+    height: 200px;
+  }
+  
+  .book-card h3 {
+    font-size: 1rem; /* Reduced font size */
+    margin-bottom: 5px;
+  }
+  
+  .book-card p {
+    color: #666;
+    font-size: 0.85rem; /* Reduced font size */
+  }
+  
+  .book-card .rating i {
+    font-size: 12px;
+    color: #ffd700;
+  }

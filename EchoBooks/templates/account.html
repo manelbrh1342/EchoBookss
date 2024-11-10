@@ -1,0 +1,392 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="home_page">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo"><img src="{% static 'media/logo.png' %}" height="25" width="45"></div>
+        <ul>
+            <li><a href="{% url 'home'%}"><i class="ri-home-2-line "></i></a></li>
+            <li><a href="{% url 'recent'%}"><i class="ri-history-line"></i></a></li>
+            <li><a href="{% url 'save' %}"><i class="ri-bookmark-line"></i></a></li>
+            <li>
+                <a href="{% url 'shop' %}">
+                    <i class="ri-shopping-bag-3-line"></i>
+                </a>
+            </li>
+            <li><a href="{% url 'settings'%}"><i class="ri-settings-3-line"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="main_content">
+        <nav class="navbar">
+            <div class="logoSearch">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search book name,edition...">
+                </div>
+            </div>
+
+            <div class="nav-icons">
+                <i class="ri-user-line"></i>
+                <i class="ri-moon-line"></i>
+            </div>
+        </nav>
+
+        <!-- Modal Overlay for Password Confirmation -->
+        <div id="passwordModal" class="modal-overlay">
+            <div class="modal-content">
+                <h3>Enter Your Password</h3>
+                <form method="POST" id="passwordForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="password" class="form-control" name="currentPassword" id="currentPassword" placeholder="Enter current password" required>
+                        <p id="errorMessage" class="text-danger mt-2" style="display: none;">
+                            Wrong Password, You don't have access to this page.
+                        </p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Modal Overlay for Deleting Account -->
+        <div id="deleteModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <h3>Delete Account</h3>
+                <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                <div class="delete-modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Account</button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5" id="settingsForm" style="display: none;">
+            <h2>Account Settings</h2>
+            <form>
+                <div class="profile-picture-container mb-4">
+                    <div class="profile-picture-wrapper">
+                        {% if user.user_profile.image %}
+                            <img id="profilePicture" src="{{ user.user_profile.image.url }}" alt="Profile Picture">
+                        {% else %}
+                            <img id="profilePicture" src="{% static 'media/user.png' %}" alt="Default Profile Picture">
+                        {% endif %}
+                        <div class="profile-picture-overlay">
+                            <i class="ri-pencil-fill edit-icon"></i>
+                        </div>
+                        <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Change Your Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Change Your Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Change Password</label>
+                    <input type="password" class="form-control" id="password1" placeholder="New password">
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="password2" placeholder="Confirm password">
+                </div>
+                <div class="mb-3 btns">
+                    <button type="submit" class="account-btn">Save Changes</button>
+                <button type="button" class="delete" onclick="showDeleteModal()">Delete Account</button>
+                </div>
+                
+            </form>
+        </div>
+
+        <footer class="footer footer_home">
+            <div class="footer-container">
+
+                <div class="footer-about">
+                    <h3>About EchoBooks</h3>
+                    <p>EchoBooks is your go-to platform for unique eBooks and audiobooks authored by passionate
+                        creators. Explore our collection and dive into new stories every day.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Explore</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: support@echobooks.com</li>
+                        <li>Phone: +123 456 7890</li>
+                        <li>Address: 123 EchoBooks St, City, Country</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 EchoBooks. All Rights Reserved.</p>
+                <ul class="footer-social .footer-social-home">
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const profilePictureWrapper = document.querySelector('.profile-picture-wrapper');
+                const profilePictureInput = document.getElementById('profilePictureInput');
+                const profilePicture = document.getElementById('profilePicture');
+                
+                let isImageModified = false; // Track if the image is changed
+                let isFieldsModified = false; // Track if other fields are modified
+                let newProfileImage = null; // Store the new profile image temporarily
+            
+                profilePictureWrapper.addEventListener('click', function() {
+                    profilePictureInput.click();
+                });
+            
+                profilePictureInput.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            profilePicture.src = e.target.result; // Preview the image immediately
+                        };
+                        reader.readAsDataURL(file);
+            
+                        // Flag the image as modified and store the new image
+                        isImageModified = true;
+                        newProfileImage = file;
+            
+                        // Enable the save button as image is modified
+                        updateSaveButtonState();
+                    }
+                });
+            
+                // Track if other fields are modified
+                const saveButton = document.querySelector(".account-btn");
+                const fields = ["username", "email", "password1", "password2"];
+            
+                // Enable save button if any field or image is modified
+                function updateSaveButtonState() {
+                    saveButton.disabled = !(isFieldsModified || isImageModified);
+                }
+            
+                // Check for changes in input fields
+                fields.forEach(fieldId => {
+                    document.getElementById(fieldId).addEventListener("input", () => {
+                        isFieldsModified = true;
+                        updateSaveButtonState();
+                    });
+                });
+            
+                // Initially disable save button
+                updateSaveButtonState();
+            
+                // Submit the form data when the save button is clicked
+                saveButton.addEventListener("click", function(event) {
+                    event.preventDefault();
+            
+                    const username = document.getElementById("username").value;
+                    const email = document.getElementById("email").value;
+                    const password1 = document.getElementById("password1").value;
+                    const password2 = document.getElementById("password2").value;
+            
+                    // Check if passwords match
+                    if (password1 !== password2) {
+                        alert("Passwords do not match");
+                        return;
+                    }
+            
+                    const formData = new FormData();
+                    formData.append("username", username);
+                    formData.append("email", email);
+                    if (password1) formData.append("password", password1);
+            
+                    // Send the new profile picture only if it's modified
+                    if (isImageModified && newProfileImage) {
+                        formData.append("image", newProfileImage);
+                    }
+            
+                    fetch("{% url 'update_user_info' %}", {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            alert("Profile updated successfully!");
+                            window.location.href = "/login/"; // Redirect to profile page
+                        } else {
+                            console.error("Error updating profile:", data.message);
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                });
+                
+                // Password form submission logic
+                document.getElementById('passwordForm').addEventListener('submit', function(event) {
+                    event.preventDefault(); // Prevent the form from submitting the traditional way
+            
+                    const formData = new FormData(this);
+            
+                    fetch("{% url 'check_password' %}", { // Update with the actual URL
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const errorMessage = document.getElementById("errorMessage");
+                        if (data.valid) {
+                            // Hide the modal and show the settings form
+                            document.getElementById("passwordModal").style.display = "none";
+                            document.getElementById("settingsForm").style.display = "flex";
+                        } else {
+                            // Show error message if password is incorrect
+                            errorMessage.style.display = "block";
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            
+                // Fetch current user data and set in fields
+                fetch("{% url 'get_user_info' %}")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("username").value = data.username;
+                        document.getElementById("email").value = data.email;
+                    });
+            });
+            
+            
+            
+        </script>
+        
+        
+
+        <style>
+            button:disabled {
+                background-color: grey;}
+            .btn-primary{
+                align-self: center;
+
+            }
+            .profile-picture-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .profile-picture-wrapper {
+                position: relative;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .profile-picture-wrapper img{
+                width: 100%;
+                height: 100%;
+            }
+            #profilePicture {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .profile-picture-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .profile-picture-wrapper:hover .profile-picture-overlay {
+                opacity: 1;
+            }
+
+            .edit-icon {
+                color: white;
+                font-size: 24px;
+            }
+
+            /* Delete Modal Styles */
+            .delete-modal-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            /* Modal overlay styles */
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .modal-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                width: 100%;
+                max-width: 400px;
+            }
+            .modal-content p{
+                font-size: 13px;
+                color: #777;
+            }
+        </style>
+</body>
+
+</html>

@@ -1,0 +1,540 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/admin.css' %} "
+    />
+    <title>Single Book Page - Admin</title>
+    <style>
+      /* Global styles and variables */
+      :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #f5f7fa;
+        --text-color: #2c3e50;
+        --border-color: #e1e8ed;
+        --success-color: #2ecc71;
+        --danger-color: #e74c3c;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        --radius: 8px;
+      }
+
+      .main-content {
+        padding: 2rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-color);
+      }
+
+      /* Book container styles */
+      .book-container {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 2rem;
+      }
+
+      .book-header {
+        margin-bottom: 2rem;
+        border-bottom: 2px solid var(--secondary-color);
+        padding-bottom: 1rem;
+      }
+
+      .book-header h1 {
+        font-size: 2rem;
+        color: var(--text-color);
+        margin: 0;
+      }
+
+      /* Form styles */
+      .book-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-color);
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+      }
+
+      /* Cover preview styles */
+      .cover-preview {
+        margin-bottom: 1rem;
+        border: 2px dashed var(--border-color);
+        padding: 1rem;
+        border-radius: var(--radius);
+        text-align: center;
+      }
+
+      .cover-preview img {
+        max-width: 200px;
+        height: auto;
+        border-radius: var(--radius);
+      }
+
+      /* Button styles */
+      .upload-btn,
+      .save-btn,
+      .cancel-btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: var(--radius);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .upload-btn {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+      }
+
+      .save-btn {
+        background-color: var(--success-color);
+        color: white;
+      }
+
+      .cancel-btn {
+        background-color: var(--danger-color);
+        color: white;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        justify-content: flex-end;
+      }
+
+      /* Current file display */
+      .current-file {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem;
+        background: var(--secondary-color);
+        border-radius: var(--radius);
+        margin-bottom: 0.5rem;
+      }
+
+      /* Reviews section */
+      .reviews-container {
+        margin-top: 3rem;
+      }
+
+      .reviews-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .reviews-list {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .review-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--secondary-color);
+        border-radius: var(--radius);
+        position: relative;
+      }
+
+      .review-user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .user-pfp {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .username {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .review-content {
+        flex: 1;
+      }
+
+      .stars {
+        color: #ffd700;
+        margin-bottom: 0.5rem;
+      }
+
+      .remove-review-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem;
+        background: var(--danger-color);
+        color: white;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .review-item:hover .remove-review-btn {
+        opacity: 1;
+      }
+
+      /* Hover effects */
+      .upload-btn:hover {
+        background-color: #e1e8ed;
+      }
+
+      .save-btn:hover {
+        background-color: #27ae60;
+      }
+
+      .cancel-btn:hover {
+        background-color: #c0392b;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .main-content {
+          padding: 1rem;
+        }
+
+        .book-form {
+          grid-template-columns: 1fr;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        .button-group button {
+          width: 100%;
+        }
+
+        .review-item {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .remove-review-btn {
+          position: static;
+          opacity: 1;
+          margin-top: 1rem;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <img src="{% static 'media/logo.png' %}" width="60" height="30" />
+          <img width="120" height="30" src="{% static 'media/logo_name.png' %}" />
+        </div>
+        <nav>
+          <a href="{% url 'dashboard' %}" class="nav-item">
+            <i class="ri-dashboard-line"></i>
+            Dashboard
+          </a>
+          <a href="{% url 'admin_books' %}" class="nav-item">
+            <i class="ri-book-line"></i>
+            Books
+          </a>
+          <a href="{% url 'users' %}" class="nav-item">
+            <i class="ri-group-line"></i>
+            Users
+          </a>
+          <a href="{% url 'admin_settings' %}" class="nav-item">
+            <i class="ri-tools-line"></i>
+            Settings
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="book-container">
+          <div class="book-header">
+            <h1>Book Details</h1>
+          </div>
+          <form class="book-form">
+            <div class="form-group">
+              <label for="title">Book Title</label>
+              <input
+                type="text"
+                id="title"
+                placeholder="Enter book title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="author">Author</label>
+              <input
+                type="text"
+                id="author"
+                placeholder="Enter author name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                rows="4"
+                placeholder="Enter book description"
+                required
+              ></textarea>
+            </div>
+
+            <!-- Book Cover Section -->
+            <div class="form-group">
+              <label for="cover">Book Cover</label>
+              <div class="cover-preview">
+                <img
+                  src="https://i.pinimg.com/control/474x/b3/11/f7/b311f7398933605c02bf51fc14c62782.jpg"
+                  id="cover-preview"
+                  alt="Current Cover"
+                  style="width: 100px; height: auto"
+                />
+              </div>
+              <input type="file" id="cover-upload" accept="image/*" hidden />
+              <button
+                type="button"
+                class="upload-btn"
+                onclick="document.getElementById('cover-upload').click()"
+              >
+                Change Cover
+              </button>
+            </div>
+
+            <div class="form-group">
+              <label for="pages">Pages</label>
+              <input
+                type="number"
+                id="pages"
+                placeholder="Enter number of pages"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="audio-length">Audio Length</label>
+              <input
+                type="text"
+                id="audio-length"
+                placeholder="Enter audio length (e.g., 3:45)"
+                required
+              />
+            </div>
+
+            <!-- MP3 Upload Section -->
+            <div class="form-group">
+              <label for="mp3-upload">Audio (MP3)</label>
+              <div class="current-file">
+                <span id="current-mp3">current-audio.mp3</span>
+                <input type="file" id="mp3-upload" accept=".mp3" hidden />
+                <button
+                  type="button"
+                  class="upload-btn"
+                  onclick="document.getElementById('mp3-upload').click()"
+                >
+                  Change MP3
+                </button>
+              </div>
+            </div>
+
+            <!-- PDF Upload Section -->
+            <div class="form-group">
+              <label for="pdf-upload">PDF File</label>
+              <div class="current-file">
+                <span id="current-pdf">current-book.pdf</span>
+                <input type="file" id="pdf-upload" accept=".pdf" hidden />
+                <button
+                  type="button"
+                  class="upload-btn"
+                  onclick="document.getElementById('pdf-upload').click()"
+                >
+                  Change PDF
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="language">Language</label>
+              <select id="language" required>
+                <option value="">Select language</option>
+                <option value="en">English</option>
+                <option value="fr">French</option>
+                <option value="es">Spanish</option>
+                <!-- Add more languages as needed -->
+              </select>
+            </div>
+          </form>
+
+          <div class="reviews-container">
+            <h2>Current Reviews</h2>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-user">
+                  <img
+                    src="https://i.pinimg.com/474x/c9/4d/85/c94d85ce0bea261773fad48d835295dc.jpg"
+                    alt="User Profile Picture"
+                    class="user-pfp"
+                  />
+                  <span class="username">User1</span>
+                </div>
+                <div class="review-content">
+                  <div class="stars">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9734;</span>
+                  </div>
+                  <p>This is a great book!</p>
+                </div>
+                <button class="remove-review-btn">Remove</button>
+              </div>
+              <div class="review-item">
+                <div class="review-user">
+                  <img
+                    src="https://i.pinimg.com/474x/c9/4d/85/c94d85ce0bea261773fad48d835295dc.jpg"
+                    alt="User Profile Picture"
+                    class="user-pfp"
+                  />
+                  <span class="username">User1</span>
+                </div>
+                <div class="review-content">
+                  <div class="stars">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9734;</span>
+                  </div>
+                  <p>This is a great book!</p>
+                </div>
+                <button class="remove-review-btn">Remove</button>
+              </div>
+              <div class="review-item">
+                <div class="review-user">
+                  <img
+                    src="https://i.pinimg.com/474x/c9/4d/85/c94d85ce0bea261773fad48d835295dc.jpg"
+                    alt="User Profile Picture"
+                    class="user-pfp"
+                  />
+                  <span class="username">User1</span>
+                </div>
+                <div class="review-content">
+                  <div class="stars">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9734;</span>
+                  </div>
+                  <p>This is a great book!</p>
+                </div>
+                <button class="remove-review-btn">Remove</button>
+              </div>
+              <div class="review-item">
+                <div class="review-user">
+                  <img
+                    src="https://i.pinimg.com/474x/c9/4d/85/c94d85ce0bea261773fad48d835295dc.jpg"
+                    alt="User Profile Picture"
+                    class="user-pfp"
+                  />
+                  <span class="username">User1</span>
+                </div>
+                <div class="review-content">
+                  <div class="stars">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9734;</span>
+                  </div>
+                  <p>This is a great book!</p>
+                </div>
+                <button class="remove-review-btn">Remove</button>
+              </div>
+              <!-- Repeat for more reviews -->
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button class="save-btn">Save Changes</button>
+            <button class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Avatar preview functionality for cover image
+      document
+        .getElementById("cover-upload")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              document.getElementById("cover-preview").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      // Remove review functionality
+      document.querySelectorAll(".remove-review-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          const reviewItem = button.closest(".review-item");
+          reviewItem.remove(); // Remove the review item from the DOM
+        });
+      });
+    </script>
+  </body>
+</html>

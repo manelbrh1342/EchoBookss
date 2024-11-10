@@ -1,0 +1,77 @@
+{% load static %} <!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %} ">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+            <img src="{{MEDIA_URL}}media/logo.png" width="60" height="30">
+            <img width="120" height="30" src="{% static 'media/logo_name.png' %}">
+      </div>
+      
+      <nav> 
+        <a href="{% url 'dashboard' %}" class="nav-item">
+            <i class="ri-dashboard-line"></i>
+          Dashboard
+        </a>
+        <a href="{% url 'admin_books' %}" class="nav-item">
+            <i class="ri-book-line"></i>
+          Books
+        </a>
+        <a href="{% url 'users' %}" class="nav-item">
+            <i class="ri-group-line"></i>
+          Users
+        </a>
+        <a href="{% url 'admin_settings' %}" class="nav-item">
+            <i class="ri-tools-line"></i>
+          Settings
+        </a>
+      </nav>
+    </aside>
+    <main class="main-content">
+        <div class="user-profile">
+            <h2>User Profile: [Username]</h2>
+        
+            <div class="profile-info">
+                <h3>Basic Information</h3>
+                <p><strong>Email:</strong> <span id="email">user@example.com</span></p>
+                <p><strong>Profile Picture:</strong> <img src="profile.jpg" alt="Profile Picture" /></p>
+            </div>
+        
+            <div class="account-status">
+                <h3>Account Status</h3>
+                <p><strong>Account Type:</strong> <span id="account-type">User</span></p>
+                <p><strong>Subscription Status:</strong> <span id="subscription-status">Active</span></p>
+                <p><strong>Registration Date:</strong> <span id="registration-date">01/01/2024</span></p>
+            </div>
+        
+            <div class="user-activity">
+                <h3>User Activity</h3>
+                <p><strong>Last Login:</strong> <span id="last-login">01/01/2024</span></p>
+                <p><strong>Total Listening Time:</strong> <span id="total-listening-time">10 hours</span></p>
+            </div>
+        
+            <div class="preferences">
+                <h3>Notification Preferences</h3>
+                <p><strong>Email Notifications:</strong> <span id="email-notifications">Enabled</span></p>
+            </div>
+        
+            <div class="admin-comments">
+                <h3>Admin Notes</h3>
+                <textarea id="admin-comments" placeholder="Leave a note..."></textarea>
+            </div>
+        
+        </div>
+        
+    </main>
+</div>
+</body>
+</html>

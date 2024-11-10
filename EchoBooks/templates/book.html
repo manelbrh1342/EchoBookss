@@ -1,0 +1,196 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="home_page">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo"><img src="{% static 'media/logo.png' %}" height="25" width="45"></div>
+
+        <ul>
+            <li>
+                <a href="{% url 'home' %}">
+                    <i class="ri-home-2-line "></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'recent' %}">
+                    <i class="ri-history-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'save' %}">
+                    <i class="ri-bookmark-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'shop' %}">
+                    <i class="ri-shopping-bag-3-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'settings' %}">
+                    <i class="ri-settings-3-line"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main_content">
+        <nav class="navbar">
+            <div class="logoSearch">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search book name, edition...">
+                </div>
+            </div>
+
+            <div class="nav-icons">
+                <i class="ri-user-line"></i>
+                <i class="ri-moon-line"></i>
+            </div>
+        </nav>
+
+        <div class="bookpage">
+            <div class="upper">
+                <div class="book-cover3"
+                    style="box-shadow:6px 0 12px rgba(0, 0, 0, 0.20), -10px 0 20px rgba(0, 0, 0, 0.15); ">
+                    <img src="{{ book.cover_image.url }}"
+                        alt="Book Cover" style="min-height: 300px; width: 250px!important;">
+                </div>
+
+                <!-- Hidden audio player -->
+                <audio id="audiobook" src="images/Really A VERY short film.mp3"></audio>
+                <div class="book-overview">
+                    <h1>{{ book.title }}</h1>
+                    <p class="genre">{{ book.genre}}</p>
+                    <p class="price">{{book.priceDZD}}DZD</p>
+                    <p class="tagline"><div style="color:orange;" class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div></p>
+                    <div class="upper-left-bottom">
+                        <a href="{% url 'read' %}"><button
+                                style="padding: 10px 20px; border-radius: 20px; border: none; background-color: rgb(49, 45, 74); color: white;">Start
+                                reading <i class="ri-arrow-right-up-line"></i></button></a>
+                        <div class="icon-buttons">
+                            <button class="icon-btn"><i class="ri-bookmark-line"></i></button> <!-- Bookmark icon -->
+                            <button class="icon-btn"><i class="ri-share-line"></i></button> <!-- Share icon -->
+                            <button class="icon-btn"><i class="ri-download-line"></i></button>
+                            <button class="icon-btn"><i class="ri-play-fill"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-section">
+                <div class="book-details3">
+                    <div class="book-details-left">
+                        <div class="book-meta">
+                            <h3>Description</h3>
+                            <p>{{ book.description }}</p>
+                        </div>
+
+                        <a style="color: black;" href="{% url 'reviews' book.id %}"><div class="review">
+                            <h3>Reviews</h3>
+                            <i class="ri-arrow-right-s-line"></i>
+                        </div></a>
+                    </div>
+
+                    <div class="book-details-right">
+                        <div class="additional-info">
+                            <h3>Language</h3>
+                            <div>{{ book.languages }}</div>
+                        </div>
+                        <div class="book-meta">
+                            <h3>eBook Length</h3>
+                            <p>{{book.number_of_pages}}page</p>
+                        </div>
+
+                        <div class="book-meta">
+                            <h3>Audiobook Length</h3>
+                            <p>{{book.audio_length}}</p>
+                        </div>
+
+                        <div class="book-meta">
+                            <h3>Publication Date</h3>
+                            <p>{{book.publication_date}}</p>
+                        </div>
+
+                        <div class="book-meta">
+                            <h3>File Formats</h3>
+                            <p>eBook: PDF | Audiobook: MP3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer footer_home">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <h3>About EchoBooks</h3>
+                    <p>EchoBooks is your go-to platform for unique eBooks and audiobooks authored by passionate
+                        creators. Explore our collection and dive into new stories every day.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Explore</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: support@echobooks.com</li>
+                        <li>Phone: +123 456 7890</li>
+                        <li>Address: 123 EchoBooks St, City, Country</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 EchoBooks. All Rights Reserved.</p>
+                <ul class="footer-social .footer-social-home">
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+
+        <button onclick="scrollToTop()" id="backToTopBtn" title="Go to top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/index.js"></script>
+    </div>
+</body>
+
+</html>

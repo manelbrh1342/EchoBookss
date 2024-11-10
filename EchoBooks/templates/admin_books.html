@@ -1,0 +1,142 @@
+{% load static %} <!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %} ">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+              <img src="{% static 'media/logo.png' %}" width="60" height="30">
+              <img width="120" height="30" src="{% static 'media/logo_name.png' %}">
+        </div>
+        
+        <nav>
+          <a href="{% url 'dashboard' %}" class="nav-item">
+              <i class="ri-dashboard-line"></i>
+            Dashboard
+          </a>
+          <a href="#" class="nav-item active">
+              <i class="ri-book-line"></i>
+            Books
+          </a>
+          <a href="{% url 'users' %}" class="nav-item">
+              <i class="ri-group-line"></i>
+            Users
+          </a>
+          <a href="{% url 'admin_settings' %}" class="nav-item">
+              <i class="ri-tools-line"></i>
+            Settings
+          </a>
+        </nav>
+      </aside>
+    <main class="main-content">
+        <div class="header">
+            <h1>Books</h1>
+            <a href="{% url 'add_book' %}" class="write-review-btn">
+                <i class="ri-edit-line"></i>
+                Add A Book
+            </a>
+        </div>
+        <section class="recent-page">
+            <div class="recent-books-grid">
+                <!-- Book Cards -->
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/control/474x/7b/f7/1d/7bf71d5617e3082dd3edf3bb5f6f70c8.jpg"
+                        alt="Book 1 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 1</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 2 days ago</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/control/474x/08/5c/25/085c2521dada2d536f00e48824112e2a.jpg"
+                        alt="Book 2 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 2</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 4 days ago</p>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/474x/ff/18/72/ff18720eb137aab09e6418703a703d1a.jpg"
+                        alt="Book 1 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 1</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 2 days ago</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/control/474x/d0/ba/52/d0ba5296f0eaa88d8fb249f2e5b466fa.jpg"
+                        alt="Book 2 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 2</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 4 days ago</p>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/control/474x/7b/f7/1d/7bf71d5617e3082dd3edf3bb5f6f70c8.jpg"
+                        alt="Book 1 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 1</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 2 days ago</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/control/474x/a3/de/f3/a3def323664d2408802932ac1d0146b7.jpg"
+                        alt="Book 2 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 2</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 4 days ago</p>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/control/474x/0b/db/82/0bdb82271ac0e04342516fc8b110be59.jpg"
+                        alt="Book 1 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 1</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 2 days ago</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://i.pinimg.com/control/474x/08/5c/25/085c2521dada2d536f00e48824112e2a.jpg"
+                        alt="Book 2 Cover" class="book-cover2">
+                    <div class="book-details">
+                        <h3 class="book-title">Book Title 2</h3>
+                        <p class="book-genre">Genre: Sci-Fi</p>
+
+                        <p class="last-viewed">Last viewed: 4 days ago</p>
+                    </div>
+                </div>
+            </div>
+            <div id="no-books-message" class="no-books-message">
+                <p>You haven’t viewed any books recently.</p>
+            </div>
+        </section>
+    </main>
+  </div>
+</body>
+</html>

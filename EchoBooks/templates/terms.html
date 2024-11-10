@@ -1,0 +1,199 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="home_page">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo"><img src="{% static 'media/logo.png' %}" height="25" width="45"></div>
+
+        <ul>
+            <li>
+                <a href="{% url 'home' %}">
+                    <i class="ri-home-2-line "></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'recent' %}">
+                    <i class="ri-history-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'save' %}">
+                    <i class="ri-bookmark-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'shop' %}">
+                    <i class="ri-shopping-bag-3-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'settings' %}">
+                    <i class="ri-settings-3-line"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main_content">
+        <nav class="navbar">
+            <div class="logoSearch">
+
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search book name,edition...">
+                </div>
+            </div>
+
+
+            <div class="nav-icons">
+                <i class="ri-user-line"></i>
+                <i class="ri-moon-line"></i>
+            </div>
+        </nav>
+        <div class="mt-5">
+        <h1 style="font-size: 30px;">Terms of Service</h1>
+        <div class="tos-container">
+            
+    
+            <div class="tos-section">
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing and using the EchoBooks platform, you agree to comply with and be bound by the following terms and conditions. Please review these terms carefully. If you do not agree with them, you should not use our services.</p>
+            </div>
+    
+            <div class="tos-section">
+                <h2>2. Changes to Terms</h2>
+                <p>We may update these Terms of Service from time to time. Any changes will be posted on this page, and your continued use of the platform after any changes indicates your acceptance of the new terms.</p>
+            </div>
+    
+            <div class="tos-section">
+                <h2>3. User Accounts</h2>
+                <p>When you create an account with us, you must provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your account and password, and you agree to accept responsibility for all activities under your account.</p>
+            </div>
+    
+            <div class="tos-section">
+                <h2>4. Content Ownership</h2>
+                <p>All content on the EchoBooks platform, including eBooks, audiobooks, images, and text, is owned by or licensed to EchoBooks. You may not use any of the content without prior written permission.</p>
+            </div>
+    
+            <div class="tos-section">
+                <h2>5. Prohibited Activities</h2>
+                <ul>
+                    <li>Using the platform for any unlawful purposes.</li>
+                    <li>Copying, modifying, or distributing any part of the content without permission.</li>
+                    <li>Attempting to interfere with the platform's security features or functionalities.</li>
+                </ul>
+            </div>
+    
+            <div class="tos-section">
+                <h2>6. Termination of Use</h2>
+                <p>We reserve the right to terminate or suspend your access to the platform for any reason, including violation of these terms, without prior notice.</p>
+            </div>
+    
+            <div class="tos-section">
+                <h2>7. Limitation of Liability</h2>
+                <p>EchoBooks will not be liable for any direct, indirect, incidental, special, or consequential damages resulting from your use or inability to use the platform.</p>
+            </div>
+    
+            <div class="tos-section">
+                <h2>8. Governing Law</h2>
+                <p>These terms are governed by the laws of the country in which EchoBooks operates. You agree to submit to the jurisdiction of its courts.</p>
+            </div>
+        </div></div>
+        <footer class="footer footer_home">
+            <div class="footer-container">
+
+                <div class="footer-about">
+                    <h3>About EchoBooks</h3>
+                    <p>EchoBooks is your go-to platform for unique eBooks and audiobooks authored by passionate
+                        creators. Explore our collection and dive into new stories every day.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Explore</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: support@echobooks.com</li>
+                        <li>Phone: +123 456 7890</li>
+                        <li>Address: 123 EchoBooks St, City, Country</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 EchoBooks. All Rights Reserved.</p>
+                <ul class="footer-social .footer-social-home">
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+        <button onclick="scrollToTop()" id="backToTopBtn" title="Go to top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/swiper-bundle.min.js"></script>
+        <script>
+            // Select option and update the selection text
+            function selectOption(dropdownId, selectionId, option) {
+                document.getElementById(selectionId).innerText = option;
+                document.getElementById(dropdownId).style.display = 'none';
+
+                // Remove the active class from the chevron after selection
+                const header = document.getElementById(dropdownId).previousElementSibling;
+                header.classList.remove('active');
+            }
+            // When the user scrolls down 300px from the top, show the button
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                const backToTopBtn = document.getElementById("backToTopBtn");
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    backToTopBtn.style.display = "block"; // Show button
+                } else {
+                    backToTopBtn.style.display = "none"; // Hide button
+                }
+            }
+
+            // Scroll to the top when the button is clicked
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });}
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read PDF</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} ">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+</head>
+
+<body class="read_page">
+    <div class="sidebar">
+        <div class="logo"><img src="{% static 'media/logo.png' %}" height="25" width="45"></div>
+
+        <ul>
+            <li>
+                <a href="{% url 'home' %}">
+                    <i class="ri-home-2-line "></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'recent' %}">
+                    <i class="ri-history-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'save' %}">
+                    <i class="ri-bookmark-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'shop' %}">
+                    <i class="ri-shopping-bag-3-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'settings' %}">
+                    <i class="ri-settings-3-line"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main_content">
+        <nav class="navbar">
+            <div class="logoSearch">
+
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search book name,edition...">
+                </div>
+            </div>
+
+
+            <div class="nav-icons">
+                <i class="ri-user-line"></i>
+                <i class="ri-moon-line"></i>
+            </div>
+        </nav>
+    <div class="pdf-container">
+        <canvas id="pdf-canvas1" class="pdf-page"></canvas>
+        <canvas id="pdf-canvas2" class="pdf-page"></canvas>
+    </div>
+    <div class="pagination-controls">
+        <button id="prev"><i class="ri-arrow-left-line"></i></button>
+        <button id="next"><i class="ri-arrow-right-line"></i></button>
+    </div>
+    </div>
+    <script>
+        const url = 'RAPPORT_ARTIJOBS.pdf';
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js';
+
+        let pdfDoc = null,
+            pageNum = 1,
+            pageIsRendering = false;
+
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        const renderPage = (num, canvasId) => {
+            if (!pdfDoc) {
+                console.error("PDF document is not loaded yet.");
+                return;
+            }
+            
+            return pdfDoc.getPage(num).then(page => {
+                const canvas = document.getElementById(canvasId);
+                const ctx = canvas.getContext('2d');
+                const viewport = page.getViewport({ scale: 1 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                return page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                }).promise;
+            }).catch(error => {
+                console.error("Failed to render page:", error);
+            });
+        };
+
+        const updateButtonStates = () => {
+            prevButton.style.display = (pageNum <= 2) ? 'none' : 'block';
+            nextButton.style.display = (pageNum + 1 >= pdfDoc.numPages) ? 'none' : 'block';
+        };
+
+        const loadPDF = () => {
+            pdfjsLib.getDocument(url).promise.then(pdf => {
+                pdfDoc = pdf;
+                renderPages();
+                updateButtonStates();
+            }).catch(error => {
+                console.error("Failed to load PDF:", error);
+            });
+        };
+
+        const renderPages = () => {
+            if (!pdfDoc || pageIsRendering) return;
+            pageIsRendering = true;
+            
+            renderPage(pageNum, 'pdf-canvas1').then(() => {
+                if (pageNum + 1 <= pdfDoc.numPages) {
+                    return renderPage(pageNum + 1, 'pdf-canvas2');
+                } else {
+                    document.getElementById('pdf-canvas2').getContext('2d').clearRect(0, 0, document.getElementById('pdf-canvas2').width, document.getElementById('pdf-canvas2').height);
+                }
+            }).finally(() => {
+                pageIsRendering = false;
+            });
+        };
+
+        prevButton.addEventListener('click', () => {
+            if (pageIsRendering || pageNum <= 2) return;
+            pageNum -= 2;
+            renderPages();
+            updateButtonStates();
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (pageIsRendering || pageNum + 1 >= pdfDoc.numPages) return;
+            pageNum += 2;
+            renderPages();
+            updateButtonStates();
+        });
+
+        loadPDF();
+    </script>
+</body>
+</html>

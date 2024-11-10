@@ -1,0 +1,204 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"rel="stylesheet"/>
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  </head>
+<body class="home_page">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo"><img src="{% static 'media/logo.png' %}" height="25" width="45"></div>
+
+        <ul>
+            <li>
+                <a class="active" href="#">
+                  <i class="ri-home-2-line "></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'recent' %}">
+                  <i class="ri-history-line"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'save' %}">
+                  <i class="ri-bookmark-line"></i>
+                </a>
+            </li>
+            <li>
+              <a href="{% url 'shop' %}">
+                  <i class="ri-shopping-bag-3-line"></i>
+              </a>
+          </li>
+            <li>
+                <a href="{% url 'settings' %}">
+                  <i class="ri-settings-3-line"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main_content">
+    <nav class="navbar">
+        <div class="logoSearch">
+    
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search book name,edition...">
+          </div>
+        </div>
+    
+    
+        <div class="nav-icons">
+          <p style="font-size:12px;">Hello, {{ request.user.username }}!</p>
+          <i class="ri-user-line"></i>
+          <i class="ri-moon-line"></i>
+        </div>
+      </nav>
+    <section class="call_out">
+        <div class="keep_reading">
+            <h2>Start Reading Now</h2>
+            <p>enjoy discoving and diving into new worlds of fantasy,thriller,and many many other topics like harry potter or narinia</p>
+            <a href="#"><button class="btn">Start reading <i class="ri-arrow-right-up-line"></i></button></a>
+        </div>
+        <div class="overview">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam itaque, nulla perspiciatis alias dicta quaerat ipsum ipsa beatae repellendus facere quisquam voluptate, temporibus cumque, tempora accusantium id error non quae.lorem epsium</p>
+            <div class="toggle_btns">
+                <i class="fa-solid fa-arrow-left button-prev"></i>
+                <i class="fa-solid fa-arrow-right button-next"></i>
+            </div>
+        </div>
+    </section>
+    <section class="home_books">
+            <div class="home__swiper2 swiper">
+              <div class="swiper-wrapper">
+                
+                <article class="home__article swiper-slide">
+                  <img src="images/Found, Gabby Skeldon (book I).png" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/a5/9b/87/a59b87a45117560b50d0283caac235a4.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/9d/11/ea/9d11ea5dbcc35503fc7934e0a1ae8ffa.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/b3/11/f7/b311f7398933605c02bf51fc14c62782.jpg" alt="" class="home__img">
+                  <p class="home_book_title">One Jar of Magic</p>
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="images/Found, Gabby Skeldon (book I).png" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/a5/9b/87/a59b87a45117560b50d0283caac235a4.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/9d/11/ea/9d11ea5dbcc35503fc7934e0a1ae8ffa.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/b3/11/f7/b311f7398933605c02bf51fc14c62782.jpg" alt="" class="home__img">
+                  <p class="home_book_title">One Jar of Magic</p>
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="images/Found, Gabby Skeldon (book I).png" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/a5/9b/87/a59b87a45117560b50d0283caac235a4.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/9d/11/ea/9d11ea5dbcc35503fc7934e0a1ae8ffa.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/b3/11/f7/b311f7398933605c02bf51fc14c62782.jpg" alt="" class="home__img">
+                  <p class="home_book_title">One Jar of Magic</p>
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="images/Found, Gabby Skeldon (book I).png" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/a5/9b/87/a59b87a45117560b50d0283caac235a4.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/9d/11/ea/9d11ea5dbcc35503fc7934e0a1ae8ffa.jpg" alt="" class="home__img">
+                </article>
+                <article class="home__article swiper-slide">
+                  <img src="https://i.pinimg.com/474x/b3/11/f7/b311f7398933605c02bf51fc14c62782.jpg" alt="" class="home__img">
+                  <p class="home_book_title">One Jar of Magic</p>
+                </article>
+              </div>
+            </div>
+    </section>
+    <footer class="footer footer_home">
+        <div class="footer-container">
+          
+            <div class="footer-about">
+                <h3>About EchoBooks</h3>
+                <p>EchoBooks is your go-to platform for unique eBooks and audiobooks authored by passionate creators. Explore our collection and dive into new stories every day.</p>
+            </div>
+    
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Email: support@echobooks.com</li>
+                    <li>Phone: +123 456 7890</li>
+                    <li>Address: 123 EchoBooks St, City, Country</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2024 EchoBooks. All Rights Reserved.</p>
+            <ul class="footer-social .footer-social-home">
+                <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+   
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/swiper-bundle.min.js"></script>
+<script>
+    let swiper = new Swiper('.home__swiper2', {
+    spaceBetween: 30,
+    loop: true,
+    grabCursor: true,
+    slidesPerView: 'auto', // Adjust each slide's width
+    navigation: {
+    nextEl: '.button-next',
+    prevEl: '.button-prev',
+    },
+    slidesPerGroup: 1,               // Move one slide at a time
+    autoplay: {
+        delay: 3000,                 // Autoplay delay of 3 seconds
+        disableOnInteraction: false, // Continue autoplay after interaction
+    },
+    speed: 500,
+    initialSlide: 2,        
+});
+
+</script>
+</body>
+</html>

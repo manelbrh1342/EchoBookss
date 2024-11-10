@@ -1,0 +1,87 @@
+{% load static %} <!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audiobook Player</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} ">
+    
+</head>
+<body>
+
+<div class="floating-player">
+    <button class="close-btn">
+        <i class="ri-close-line"></i>
+    </button>
+    <div class="progress-bar-container">
+        <img src="https://i.pinimg.com/control/474x/18/af/7c/18af7c3fcadc1e851d39708fa8038c64.jpg" alt="Book Cover">
+        <svg class="progress-bar-rect" width="180" height="240" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="160" height="200" rx="12" ry="12" fill="none" stroke="#ddd" stroke-width="5" />
+            <rect class="progress" id="progress-bar" x="10" y="10" width="160" height="200" rx="12" ry="12" 
+                  fill="none" stroke="#3fcfcac8" stroke-width="5" />
+        </svg>
+    </div>
+    <p class="time-display" id="time-display">0:00</p>
+    <div class="controls">
+        <button class="control-btn" id="backward"><i class="ri-skip-back-mini-line"></i></button>
+        <button class="control-btn" id="play-button"><i id="play-icon" class="ri-play-line"></i></button>
+        <button class="control-btn" id="forward"><i class="ri-skip-forward-mini-line"></i></button>
+    </div>
+</div>
+
+<script>
+    document.querySelector('.close-btn').addEventListener('click', function() {
+        document.querySelector('.floating-player').style.display = 'none';
+    });
+
+    const playButton = document.getElementById('play-button');
+    const playIcon = document.getElementById('play-icon');
+    const timeDisplay = document.getElementById('time-display');
+    const progressElement = document.getElementById('progress-bar');
+    const audio = new Audio('images/Really A VERY short film.mp3'); // Replace with your MP3 file path
+    const progressWidth = 160;
+    const progressHeight = 200;
+    const strokeWidth = 5;
+    const strokeLength = 2 * (progressWidth + progressHeight - 2 * strokeWidth);
+    
+    // Initialize strokeDasharray and strokeDashoffset to fully hide the colored progress bar
+    progressElement.style.strokeDasharray = strokeLength;
+    progressElement.style.strokeDashoffset = strokeLength;
+
+    function formatTime(seconds) {
+        let minutes = Math.floor(seconds / 60);
+        let secs = Math.floor(seconds % 60);
+        if (secs < 10) secs = '0' + secs;
+        return `${minutes}:${secs}`;
+    }
+
+    function updateProgressBar() {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        const progressOffset = strokeLength - (progressPercent / 100) * strokeLength;
+        progressElement.style.strokeDashoffset = progressOffset;
+        timeDisplay.textContent = formatTime(audio.currentTime);
+    }
+
+    function togglePlay() {
+        if (audio.paused) {
+            audio.play();
+            playIcon.className = 'ri-pause-line';
+        } else {
+            audio.pause();
+            playIcon.className = 'ri-play-line';
+        }
+    }
+
+    audio.addEventListener('timeupdate', updateProgressBar);
+    audio.addEventListener('ended', () => {
+        playIcon.className = 'ri-play-line';
+        audio.currentTime = 0;
+        updateProgressBar();
+    });
+
+    playButton.addEventListener('click', togglePlay);
+</script>
+
+</body>
+</html>

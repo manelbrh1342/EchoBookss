@@ -1,0 +1,331 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconsax-font-icon@1.1.0/dist/icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/index.css' %} " >
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %} ">
+  <title>EchoBooks Navbar</title>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logoSearch">
+      <a href="#"></a><div class="logo"><img src="{% static 'media/logo.png' %}" height="30" width="50"></div></a>
+
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search book name,edition...">
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="{% url 'explore' %}">Explore</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="{% url 'contact' %}">Contact</a>
+    </div>
+
+    <div class="nav-icons">
+      <a href="{% url 'login' %}"><i class="ri-user-line"></i></a>
+      <i class="ri-moon-line"></i>
+    </div>
+  </nav>
+  <main class="main">
+    <section class="home section" id="home">
+      <div class="home__container">
+        <div class="home__data">
+          <h1 class="home__title">Welcome to EchoBooks</h1>
+          <p class="home__description">Your one-stop-shop for all your book needs</p>
+          <a href="#" class="button">Explore Now</a>
+        </div>
+        <div class="home__images">
+          <dix style="padding-right:45% ;" class="home__swiper swiper">
+            <div class="swiper-wrapper">
+              <article class="home__article swiper-slide">
+                <img src="images/Found, Gabby Skeldon (book I).png" alt="" class="home__img">
+              </article>
+              <article class="home__article swiper-slide">
+                <img src="https://i.pinimg.com/474x/a5/9b/87/a59b87a45117560b50d0283caac235a4.jpg" alt="" class="home__img">
+              </article>
+              <article class="home__article swiper-slide">
+                <img src="https://i.pinimg.com/474x/9d/11/ea/9d11ea5dbcc35503fc7934e0a1ae8ffa.jpg" alt="" class="home__img">
+              </article>
+              <article class="home__article swiper-slide">
+                <img src="https://i.pinimg.com/474x/b3/11/f7/b311f7398933605c02bf51fc14c62782.jpg" alt="" class="home__img">
+              </article>
+            </div>
+          </dix>
+        </div>
+      </div>
+    </section>
+    <section class="features">
+      <h2 class="features-title">Why Choose EchoBooks?</h2>
+      <div class="feature-container">
+        <div class="feature">
+          <i class="fa-solid fa-medal"></i>
+          <h3>Quality Content</h3>
+          <p>Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+        <div class="feature">
+          <i class="fa-solid fa-medal"></i>
+          <h3>Quality Content</h3>
+          <p>Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+        <div class="feature">
+          <i class="fa-solid fa-file-audio"></i>
+          <h3>Audiobook Options</h3>
+          <p>Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+        <div class="feature">
+          <i class="fa-solid fa-lightbulb"></i>
+          <h3>Innovative Learning</h3>
+          <p>Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section__title">New Books</h2>
+      <div class="new__container ">
+        <div class="new__swiper swiper">
+          <div class="swiper-wrapper">
+            <div class="book-card2 swiper-slide">
+              <img src="https://i.pinimg.com/control/474x/7b/f7/1d/7bf71d5617e3082dd3edf3bb5f6f70c8.jpg"
+                  alt="Book 1 Cover" class="book-cover">
+              <div class="book-details2">
+                  <h5 class="book-title2">The Enchanted Trip Diaryyy </h5>
+                  <p>60 page-Free</p>
+              </div>
+            </div>
+            <div class="book-card2 swiper-slide">
+              <img src="https://i.pinimg.com/control/474x/7b/f7/1d/7bf71d5617e3082dd3edf3bb5f6f70c8.jpg"
+                  alt="Book 1 Cover" class="book-cover">
+              <div class="book-details2">
+                  <h5 class="book-title2">Book Title 1</h5>
+                  <p>60 page-Free</p>
+              </div>
+            </div>
+            <div class="book-card2 swiper-slide">
+              <img src="https://i.pinimg.com/control/474x/7b/f7/1d/7bf71d5617e3082dd3edf3bb5f6f70c8.jpg"
+                  alt="Book 1 Cover" class="book-cover">
+              <div class="book-details2">
+                  <h5 class="book-title2">Book Title 1</h5>
+                  <p>60 page-Free</p>
+              </div>
+            </div>
+            <div class="book-card2 swiper-slide">
+              <img src="https://i.pinimg.com/control/474x/7b/f7/1d/7bf71d5617e3082dd3edf3bb5f6f70c8.jpg"
+                  alt="Book 1 Cover" class="book-cover">
+              <div class="book-details2">
+                  <h5 class="book-title2">Book Title 1</h5>
+                  <p>60 page-Free</p>
+              </div>
+            </div>
+            <div class="book-card2 swiper-slide">
+              <img src="https://i.pinimg.com/control/474x/7b/f7/1d/7bf71d5617e3082dd3edf3bb5f6f70c8.jpg"
+                  alt="Book 1 Cover" class="book-cover">
+              <div class="book-details2">
+                  <h5 class="book-title2">Book Title 1</h5>
+                  <p>60 page-Free</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container3">
+        <div class="images_ipads">
+          <img src="{{MEDIA_URL}}media/1728074242.png" alt="">
+          <img src="{{MEDIA_URL}}media/1728075133.png"alt="">
+          
+        </div>
+        <div class="discount">
+          <h2>Best Sellers</h2>
+          <p>Discover the best books of the month</p>
+          <a href="#" class="button">Explore Now</a>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="category__title">
+        <h2>Categories</h2>
+      </div>
+      <div class="category__container">
+        
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="category__card">
+          <i class="fa-solid fa-hat-wizard"></i>
+          <h3>Fiction</h3>
+          <p>22 book</p>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+      </div>
+    </section>
+    <section class="authorSection">
+      <h2 class="section__title">Meet The Author</h2>
+      <div class="author-spotlight">
+        
+        <div class="author-avatar">
+            <img src="{{MEDIA_URL}}media/Found, Gabby Skeldon (book I).png" alt="Author Avatar">
+        </div>
+        <div class="author-bio">
+          <p>Hi, I'm [Your Name], an author with a passion for storytelling and language mastery. After mastering six languages and creating content across multiple platforms, I'm excited to share my journey and stories with you through EchoBooks.</p>
+            <div class="author-highlights">
+                <div class="highlight-item">
+                    <h3><span class="counter" data-target="100">0</span></h3>
+                    <p>Languages Mastered</p>
+                </div>
+                <div class="highlight-item">
+                    <h3><span class="counter" data-target="2222">0</span></h3>
+                    <p>Books Written</p>
+                </div>
+                <div class="highlight-item">
+                    <h3><span class="counter" data-target="1000">0</span></h3>
+                    <p>Readers Inspired</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </section>
+    <section>
+      <div class="newsletter-section">
+        <h2>Subscribe to our <span>Newsletter</span></h2>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-container">
+        
+          <div class="footer-about">
+              <h3>About EchoBooks</h3>
+              <p>EchoBooks is your go-to platform for unique eBooks and audiobooks authored by passionate creators. Explore our collection and dive into new stories every day.</p>
+          </div>
+  
+          <div class="footer-links">
+              <h3>Quick Links</h3>
+              <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Explore</a></li>
+                  <li><a href="#">Blog</a></li>
+              </ul>
+          </div>
+  
+          <div class="footer-contact">
+              <h3>Contact Us</h3>
+              <ul>
+                  <li>Email: support@echobooks.com</li>
+                  <li>Phone: +123 456 7890</li>
+                  <li>Address: 123 EchoBooks St, City, Country</li>
+              </ul>
+          </div>
+      </div>
+  
+      <div class="footer-bottom">
+          <p>&copy; 2024 EchoBooks. All Rights Reserved.</p>
+          <ul class="footer-social">
+              <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+              <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+          </ul>
+      </div>
+  </footer>
+  
+  </main>
+
+</body>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script>
+  let swiper = new Swiper('.home__swiper',{
+    loop:true,
+    spaceBetween: -10,
+    grabCursor:true,
+    slidesPerView:'auto',
+    centeredSlides:'auto',
+    
+    autoplay:{
+        delai:  3000,
+        disableOnInteraction:false,
+    },
+   
+
+})
+
+let swiperNew = new Swiper('.new__swiper',{
+  loop:true,
+    grabCursor:true,
+    slidesPerView : 'auto',
+    autoplay:{
+        delai:  3000,
+        disableOnInteraction:false,
+    },
+    breakpoints:{
+        1150:{
+            slidesPerView:3,
+        }
+    }
+
+})
+</script>
+</html>

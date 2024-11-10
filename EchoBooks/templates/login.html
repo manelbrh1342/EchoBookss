@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %} ">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="animation-background">
+            <img src="{% static 'media/image-removebg-preview (7)_enhanced.png' %}">
+        </div>
+        <div class="form-box">
+            <div class="form-header">
+                <img src="{% static 'media/logo.png' %}" width="40" height="20">
+                <img width="100" height="20" src="{% static 'media/logo_name.png' %}">
+            </div>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="form_content" method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <h4>Create</br>account</h4>
+                <div style="display:flex; flex-direction:row;gap:0.4rem;">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div style="display:flex; flex-direction:row;gap:0.4rem;">
+                <input type="password" name="password1" placeholder="Password" required>
+                <input type="password" name="password2" placeholder="Confirm Password" required></div>
+                <div id="errorDisplay" style=" font-size:12px; color: red; display: none;"></div>
+                <button type="submit" class="btn">Create account</button>
+                <div class="another_method">
+                    <p>or signup with</p>
+                    <div class="icons">
+                        <i class="fa-brands fa-google"></i>
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </div>
+                    <p>By creating an account you agree to echobooks <span> terms of service</span> and <span>privacy policy</span></p>
+                    <p>Have an account? <span id="login-link">Log in</span></p>
+                </div>
+            </form>
+
+            <!-- Login Form -->
+            <form id="login-form" class="form_content" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <h4>Welcome</br>back</h4>
+                <input type="text" name="username" placeholder="Username or Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <div id="errorDisplay2" style=" font-size:12px; color: red; display: none;"></div>
+                <button type="submit" class="btn">Log in</button>
+                <div class="another_method">
+                    <p>or Login with</p>
+                    <div class="icons">
+                        <i class="fa-brands fa-google"></i>
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </div>
+                    <p style="width: 100%; margin-top: 40px;">Don't have an account? <span id="signup-link">Create account</span></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="{% static 'js/login.js' %}"></script>
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+        
+            const formData = new FormData(this);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;  // Fetch token from hidden input
+
+            fetch("{% url 'signup' %}", {
+                method: "POST",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": csrfToken
+                },
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.error || "An error occurred");
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Redirect to the home page if signup is successful
+                    window.location.href = data.redirect_url;
+                }
+            })
+            .catch(error => {
+                // Display error message
+                document.getElementById("errorDisplay").innerText = error.message;
+                document.getElementById("errorDisplay").style.display = "block";
+            });
+        });
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+        
+            const formData = new FormData(this);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;  // Fetch token from hidden input
+
+            fetch("{% url 'login' %}", {
+                method: "POST",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": csrfToken
+                },
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.error || "An error occurred");
+                    });
+                }
+                if (response.status === 200) {
+                    // Redirect to home2.html upon successful login
+                    window.location.href = '/home/';
+                }
+                else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+            })
+            .catch(error => {
+                // Display error message
+                document.getElementById("errorDisplay2").innerText = error.message;
+                document.getElementById("errorDisplay2").style.display = "block";
+            });
+        });
+    </script>
+        
+</body>
+
+</html>

@@ -1,0 +1,279 @@
+{% load static %} <!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %} ">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{% static 'media/logo.png' %}" width="60" height="30">
+                <img width="120" height="30" src="{% static 'media/logo_name.png' %}">
+            </div>
+            <nav>
+                <a href="{% url 'dashboard' %}" class="nav-item">
+                    <i class="ri-dashboard-line"></i>
+                    Dashboard
+                </a>
+                <a href="{% url 'admin_books' %}" class="nav-item">
+                    <i class="ri-book-line"></i>
+                    Books
+                </a>
+                <a href="{% url 'users' %}" class="nav-item">
+                    <i class="ri-group-line"></i>
+                    Users
+                </a>
+                <a href="#" class="nav-item active">
+                    <i class="ri-tools-line"></i>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="settings-container">
+                <div class="settings-header">
+                    <h1>Settings</h1>
+                    <p>Manage your account settings and preferences</p>
+                </div>
+
+                <div class="settings-navigation">
+                    <button class="nav-tab active" data-tab="profile">Profile</button>
+                    <button class="nav-tab" data-tab="security">Security</button>
+                    <button class="nav-tab" data-tab="notifications">Notifications</button>
+                    <button class="nav-tab" data-tab="app">App Settings</button>
+                    <button class="nav-tab" data-tab="payment">Payment Settings</button>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="settings-section active" id="profile">
+                    <div class="section-header">
+                        <h2>Profile Settings</h2>
+                        <p>Update your profile information and avatar</p>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="avatar-upload">
+                            <div class="avatar-preview">
+                                <img src="https://i.pinimg.com/474x/c9/4d/85/c94d85ce0bea261773fad48d835295dc.jpg" alt="Profile picture" id="avatar-preview-img">
+                            </div>
+                            <input type="file" id="avatar-upload-input" hidden accept="image/*">
+                            <button class="avatar-upload-btn" onclick="document.getElementById('avatar-upload-input').click()">
+                                Change Avatar
+                            </button>
+                        </div>
+
+                        <div class="profile-form">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" value="john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <input type="text" id="role" value="Administrator" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea id="bio" rows="4" placeholder="Tell us about yourself"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Section -->
+                <div class="settings-section" id="security">
+                    <div class="section-header">
+                        <h2>Security Settings</h2>
+                        <p>Manage your password and security preferences</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" placeholder="Enter your current password">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" placeholder="Enter a new password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm New Password</label>
+                        <input type="password" id="confirm-password" placeholder="Re-enter new password">
+                    </div>
+
+                    <div class="switch-wrapper">
+                        <div class="switch-text">
+                            <h4>Two-Factor Authentication</h4>
+                            <p>Enable two-factor authentication for enhanced security</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Notifications Section -->
+                <div class="settings-section" id="notifications">
+                    <div class="section-header">
+                        <h2>Notification Preferences</h2>
+                        <p>Choose what notifications you want to receive</p>
+                    </div>
+
+                    <div class="switch-wrapper">
+                        <div class="switch-text">
+                            <h4>Email Notifications</h4>
+                            <p>Receive notifications via email</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-wrapper">
+                        <div class="switch-text">
+                            <h4>System Notifications</h4>
+                            <p>Receive system alerts and updates</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-wrapper">
+                        <div class="switch-text">
+                            <h4>Marketing Notifications</h4>
+                            <p>Receive marketing and promotional emails</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- App Settings Section -->
+                <div class="settings-section" id="app">
+                    <div class="section-header">
+                        <h2>App Settings</h2>
+                        <p>Customize your application preferences</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="language">Language</label>
+                        <select id="language">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                        </select>
+                    </div>
+
+                    <div class="switch-wrapper">
+                        <div class="switch-text">
+                            <h4>Dark Mode</h4>
+                            <p>Enable dark mode for the interface</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-wrapper">
+                        <div class="switch-text">
+                            <h4>Auto-save</h4>
+                            <p>Automatically save changes</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Payment Settings Section -->
+                <div class="settings-section" id="payment">
+                    <div class="section-header">
+                        <h2>Payment Settings</h2>
+                        <p>Configure your payment preferences</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment-method">Payment Method</label>
+                        <select id="payment-method">
+                            <option value="credit-card">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="stripe">Stripe</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currency">Currency</label>
+                        <select id="currency">
+                            <option value="usd">USD</option>
+                            <option value="eur">EUR</option>
+                            <option value="dzd">DZD</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="billing-address">Billing Address</label>
+                        <textarea id="billing-address" rows="3" placeholder="Enter your billing address"></textarea>
+                    </div>
+
+                    <div class="switch-wrapper">
+                        <div class="switch-text">
+                            <h4>Save Payment Information</h4>
+                            <p>Save payment information for future transactions</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="save-btn">Save Changes</button>
+                    <button class="cancel-btn">Cancel</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and sections
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.settings-section').forEach(section => section.classList.remove('active'));
+                
+                // Add active class to the clicked tab and corresponding section
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Avatar upload functionality
+        document.getElementById('avatar-upload-input').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview-img').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

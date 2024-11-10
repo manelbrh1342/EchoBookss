@@ -1,0 +1,229 @@
+{% load static %} <!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %} ">
+
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+              <img src="{% static 'media/logo.png' %}" width="60" height="30">
+              <img width="120" height="30" src="{% static 'media/logo_name.png' %}">
+        </div>
+        
+        <nav>
+          <a href="#" class="nav-item active">
+              <i class="ri-dashboard-line"></i>
+            Dashboard
+          </a>
+          <a href="{% url 'admin_books' %}" class="nav-item">
+              <i class="ri-book-line"></i>
+            Books
+          </a>
+          <a href="{% url 'users' %}" class="nav-item">
+              <i class="ri-group-line"></i>
+            Users
+          </a>
+          <a href="{% url 'admin_settings' %}" class="nav-item">
+              <i class="ri-tools-line"></i>
+            Settings
+          </a>
+        </nav>
+      </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="header">
+        <h1>Dashboard</h1>
+        <div class="profile">
+          <!-- Add profile section here -->
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total Users</h3>
+          <div class="value">2,847</div>
+          <div class="trend up">
+            <i class="ri-arrow-up-line"></i>
+            12% from last month
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Active Listeners</h3>
+          <div class="value">1,437</div>
+          <div class="trend up">
+            <i class="ri-arrow-up-line"></i>
+            8% from last month
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Total Books</h3>
+          <div class="value">584</div>
+          <div class="trend up">
+            <i class="ri-arrow-up-line"></i>
+            24% from last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="charts-grid">
+        <div class="chart-card">
+            <h2>Listening Activity</h2>
+            <canvas id="activity-chart" style="height: 300px;"></canvas>
+
+          
+            <!-- Key Metrics -->
+            <div class="activity-metrics">
+              <div class="metric">
+                <h3>Total Plays</h3>
+                <p>12,567</p>
+              </div>
+              <div class="metric">
+                <h3>Avg. Listening Time</h3>
+                <p>45 mins</p>
+              </div>
+              <div class="metric">
+                <h3>Top Category</h3>
+                <p>Audiobooks</p>
+              </div>
+            </div>
+          </div>
+          
+        
+          <div class="chart-card">
+            <h2>Popular Categories</h2>
+            <canvas id="categories-chart" style="height: 100px!important;"></canvas>
+          
+            <!-- Categories List -->
+            <div class="categories-list">
+              <div class="category">
+                <span class="category-name">Audiobooks</span>
+                <span class="category-count">45%</span>
+              </div>
+              <div class="category">
+                <span class="category-name">Podcasts</span>
+                <span class="category-count">30%</span>
+              </div>
+              <div class="category">
+                <span class="category-name">Stories</span>
+                <span class="category-count">15%</span>
+              </div>
+              <div class="category">
+                <span class="category-name">Lectures</span>
+                <span class="category-count">10%</span>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="recent-activity">
+        <h2>Recent Activity</h2>
+        <div class="activity-item">
+            <div class="activity-icon icon-blue">
+                <i class="ri-user-add-line"></i>
+            </div>
+            <div class="activity-content">
+                <h4>New User Registration</h4>
+                <p>John Doe registered 2 minutes ago</p>
+            </div>
+        </div>
+        
+        <div class="activity-item">
+            <div class="activity-icon icon-green">
+                <i class="ri-headphone-line"></i>
+            </div>
+            <div class="activity-content">
+                <h4>New Audiobook Added</h4>
+                <p>"The Power of Habit" was added 10 minutes ago</p>
+            </div>
+        </div>
+    
+        <div class="activity-item">
+            <div class="activity-icon icon-red">
+                <i class="ri-delete-bin-5-line"></i>
+            </div>
+            <div class="activity-content">
+                <h4>Subscription Cancelled</h4>
+                <p>Emily Smith canceled her subscription 1 hour ago</p>
+            </div>
+        </div>
+    
+        <div class="activity-item">
+            <div class="activity-icon icon-yellow">
+                <i class="ri-chat-3-line"></i>
+            </div>
+            <div class="activity-content">
+                <h4>New Comment</h4>
+                <p>Michael Brown commented on "Atomic Habits" 3 hours ago</p>
+            </div>
+        </div>
+    </div>
+    
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+     const ctx = document.getElementById('activity-chart').getContext('2d');
+  const activityChart = new Chart(ctx, {
+    type: 'line', // Use 'bar' for bar chart
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Plays',
+        data: [320, 400, 300, 500, 450, 650, 700],
+        backgroundColor: '#83d6fa3f',
+        borderColor: '#46b5e5',
+        borderWidth: 2,
+        fill: true
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true },
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+  const ctxCategories = document.getElementById('categories-chart').getContext('2d');
+  const categoriesChart = new Chart(ctxCategories, {
+    type: 'doughnut',
+    data: {
+      labels: ['Audiobooks', 'Podcasts', 'Stories', 'Lectures'],
+      datasets: [{
+        label: 'Category Popularity',
+        data: [45, 30, 15, 10],
+        backgroundColor: [
+          '#64c1e9', 
+          '#83cded', 
+          '#a2daf2', 
+          '#c1e6f6'
+        ],
+        borderColor: [
+          '#3a96be', 
+          '#2e7898', 
+          '#235a72', 
+          '#173c4c'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: true }
+      }
+    }
+  });
+  </script>
+</body>
+</html>
