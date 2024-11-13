@@ -45,6 +45,7 @@ urlpatterns = [
     path('update_user_info/', views.update_user_info, name='update_user_info'),
     path('review/<int:review_id>/like/', views.like_review, name='like_review'),
     path('book/<int:book_id>/submit-review/', views.submit_review, name='submit_review'),
+    path('save-book/<int:book_id>/', views.save_book, name='save_book'),
 
 ]
 if settings.DEBUG:

@@ -57,7 +57,7 @@ def book(request,book_id):
     profile = request.user.user_profile
     # Check if the book already exists in the user's recent books
     recent_book = RecentBook.objects.filter(profile=profile, book=book).first()
-
+    is_saved = SavedBook.objects.filter(profile=profile, book=book).exists()
     if not recent_book:
         # If the book doesn't exist, create a new record
         RecentBook.objects.create(profile=profile, book=book)
@@ -66,7 +66,7 @@ def book(request,book_id):
         recent_book.viewed_date = timezone.now()
         recent_book.save()
 
-    return render(request, 'book.html',{'book': book})
+    return render(request, 'book.html',{'book': book,'is_saved ':is_saved })
 def dashboard(request):
     return render(request, 'dashboard.html')
 def help(request):
@@ -273,3 +273,16 @@ def add_to_saved_books(request, book_id):
     profile = request.user.profile  # Get the current user's profile
     SavedBook.objects.create(profile=profile, book=book)
     return redirect('your_redirect_page')  # Redirect after adding (change as necessary)
+
+@csrf_exempt
+def save_book(request, book_id):
+    if request.method == 'POST':
+        book = Book.objects.get(id=book_id)
+        profile = request.user.user_profile
+
+        saved_book, created = SavedBook.objects.get_or_create(profile=profile, book=book)
+        if not created:
+            saved_book.delete()
+            return JsonResponse({'saved': False})
+        return JsonResponse({'saved': True})
+    return JsonResponse({'error': 'Invalid request'}, status=400)

@@ -67,7 +67,7 @@
                 <i class="ri-moon-line"></i>
             </div>
         </nav>
-
+        {% csrf_token %}
         <div class="bookpage">
             <div class="upper">
                 <div class="book-cover3"
@@ -81,7 +81,7 @@
                 <div class="book-overview">
                     <h1>{{ book.title }}</h1>
                     <p class="genre">{{ book.genre}}</p>
-                    <p class="price">{{book.priceDZD}}DZD</p>
+                    <p class="price">{{book.priceDZD}}DZD {{is_saved}}</p>
                     <p class="tagline"><div style="color:orange;" class="stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -94,7 +94,13 @@
                                 style="padding: 10px 20px; border-radius: 20px; border: none; background-color: rgb(49, 45, 74); color: white;">Start
                                 reading <i class="ri-arrow-right-up-line"></i></button></a>
                         <div class="icon-buttons">
-                            <button class="icon-btn"><i class="ri-bookmark-line"></i></button> <!-- Bookmark icon -->
+                            <button class="icon-btn" id="save-button" onclick="toggleSave({{ book.id }})">
+                                {% if book in request.user.user_profile.saved_books %}
+                                <i id="save-icon" class="ri-bookmark-fill"></i>
+                                {% else %}
+                                <i id="save-icon" class="ri-bookmark-line"></i>
+                                {% endif %}
+                            </button>
                             <button class="icon-btn"><i class="ri-share-line"></i></button> <!-- Share icon -->
                             <button class="icon-btn"><i class="ri-download-line"></i></button>
                             <button class="icon-btn"><i class="ri-play-fill"></i></button>
@@ -189,7 +195,44 @@
         </button>
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="js/index.js"></script>
+        <script>
+            function toggleSave(bookId) {
+                const saveIcon = document.getElementById('save-icon');
+                fetch(`/save-book/${bookId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.saved) {
+                        saveIcon.classList.replace('ri-bookmark-line', 'ri-bookmark-fill');
+                    } else {
+                        saveIcon.classList.replace('ri-bookmark-fill', 'ri-bookmark-line');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+            
+            // Helper function to get CSRF token for AJAX
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            
+        </script>
     </div>
 </body>
 
